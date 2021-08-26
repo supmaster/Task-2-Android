@@ -45,19 +45,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AAChartModel aaChartModel = new AAChartModel();
     AAChartView aaChartView;
     Integer[] sum = new Integer[]{9, 4, 5, 8, 11, 15, 17, 16, 14};
-//    LocationReceiver locationReceiver;
-
-//    private MqttService mqttService;
     String token;
     String clientId;//设备ID
     String apiUrl = "http://a3.easemob.com";//"https://a1.easemob.com";
-    String appKey = "1134210822051281#demo";
+    String appKey = "xxxxxxxxxxxxxxxxxxx#xxxx";
     //mqtt
-    String appId = "95zcd0";
-    String host = "tcp://95zcd0.cn1.mqtt.chat:1883";
+    String appId = "xxxxx";
+    String host = "tcp://xxxxxx.cn1.mqtt.chat:1883";
     String topic = "mqtt-chart";
     String username = "chart"+System.currentTimeMillis();
-    String password = "123456";
+    String password = "xxxxxx";
     private static MqttAndroidClient  mqttAndroidClient;
     final ExecutorService executorService = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>());
@@ -92,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initMQTT() throws MqttException, InterruptedException {
         clientId = username+"@" + appId ;//System.currentTimeMillis() + "@" + appId;
-        mqttAndroidClient = new MqttAndroidClient(this, "tcp://1NQ1E9.sandbox.mqtt.chat:1883", clientId);
-//        mqttAndroidClient.wait(5000);
+        mqttAndroidClient = new MqttAndroidClient(this, "tcp://xxxxxx.sandbox.mqtt.chat:1883", clientId);
 
         Log.d(TAG, "获取token前，token=："+token);
         mqttGetToken();
@@ -105,11 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mqttConnect();
         Log.d(TAG, "连接后，token=："+token);
 
-
-//        locationReceiver = new LocationReceiver();
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction("location.success");
-//        registerReceiver(locationReceiver, filter);
     }
 
     private void mqttRegister(String uname,String passwd) {
@@ -121,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try{
             String ret = httpPost(apiUrl + "/" + appKey.replace("#", "/") + "/users", json.toJSONString(),"Bearer "+token);
             Log.d(TAG, "注册返回："+ret);
-//            Toast.makeText(MainActivity.this, "注册用户:"+ret, Toast.LENGTH_LONG).show();
         }catch (Exception e) {
             Log.d(TAG, uname+"注册失败："+e.toString());
         }
@@ -129,8 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void mqttGetToken() {
         Log.d(TAG, "开始获取token");
         JSONObject json = new JSONObject();
-        json.put("client_id", "YXA6FATwnDfKS7qE_6Tjv-x0Zw");
-        json.put("client_secret", "YXA6P810yk_2HZz_hc7Unmb52B11Ve4");
+        json.put("client_id", "Yxxxxxxxxxxxxxxxxx");
+        json.put("client_secret", "YXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxe4");
         json.put("grant_type", "client_credentials");
         try {
             String ret = httpPost(apiUrl + "/" + appKey.replace("#", "/") + "/token", json.toJSONString(),"getToken");
@@ -138,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             JSONObject result = JSONObject.parseObject(ret);
             token = result.getString("access_token");
             Log.d(TAG, "拿到token："+token);
-//            Toast.makeText(MainActivity.this, "获取token="+token, Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             token = "";
             Log.d(TAG, "获取token失败："+e.toString());
@@ -155,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, uname+"登录返回："+ret);
             JSONObject result = JSONObject.parseObject(ret);
             token = result.getString("access_token");
-//            Toast.makeText(MainActivity.this, uname+"登录:", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Log.d(TAG, uname+"登录失败："+e.toString());
         }
