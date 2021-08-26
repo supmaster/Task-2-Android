@@ -1,12 +1,11 @@
 # Task-2-Android
 基于环信MQTT开发的实时图表Android版，实现多终端互动
-![](Screenshots/login0.jpg "登录界面") ![](Screenshots/login.jpg "登录成功")
+![](Screenshots/home.jpg "登录成功")
 ## 1 功能介绍
 ### 1.1 系统功能
 #### 1.1.1 配置说明
 * 配置文件在MainActivity.java中，同一协作团队MQTT配置须一致
 * 生成apk后，设备须在**联网环境**下使用
-
 #### 1.1.2 运行应用
 * 应用启动时可以从Logcat看到MQTT相关日志：
   * MQTT客户端初始化
@@ -20,7 +19,7 @@
 #### 1.2.1 点击柱状条
 * 可以直接点击响应的柱状条给其投票
 * 每点击一次增加一票
-* ![](Screenshots/clickBar.jpg "点击柱状条")
+![](Screenshots/clickBar.jpg "点击柱状条")
 #### 1.2.2 点击按钮“JAVA”
 * 点击按钮“支持Java”
 * 可以看到Java在图表中的Bar增加1
@@ -75,4 +74,4 @@ Project Link: [https://github.com/supmaster/Task-2-Android](https://github.com/s
 - [x] [IM Geek]()
 - [x] []()社群小姐姐 :girl:
 
-[回到顶部](#readme)
+[回到顶部](#Task-2-Android)
