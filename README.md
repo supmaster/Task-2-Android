@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/LICENSE)
-[![Build Status](https://travis-ci.org/supmaster/Task-2-Android.svg?branch=master)](https://travis-ci.org/supmaster/Task-2-Android) 
-![Github stars](https://img.shields.io/github/stars/Task-2-Android/interview.svg)
+[![Build Status](https://travis-ci.org/xialonghua/kotmvp.svg?branch=master)](https://travis-ci.org/supmaster/Creative-Challenge-MQTT-BugList) 
+![Github stars](https://img.shields.io/github/stars/supmaster/Task-2-Android.svg)
 
 # Task-2-Android
 基于环信MQTT开发的实时图表Android版，实现多终端互动
