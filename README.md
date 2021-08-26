@@ -1,6 +1,7 @@
 # Task-2-Android
 基于环信MQTT开发的实时图表Android版，实现多终端互动
-![](Screenshots/home.jpg "登录成功")
+<br />
+<img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/home.jpg" width="auto" height="700px" alt="登录成功"/><br/>
 ## 1 功能介绍
 ### 1.1 系统功能
 #### 1.1.1 配置说明
@@ -14,30 +15,30 @@
   * 用户登录
   * MQTT客户端连接云端
 * 启动成功后界面如下：
-![](Screenshots/login.jpg "运行应用") 
+<br /><img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/login.jpg" width="auto" height="600px" alt="运行应用"/><br/>
 ### 1.2 业务功能
 #### 1.2.1 点击柱状条
 * 可以直接点击响应的柱状条给其投票
 * 每点击一次增加一票
-![](Screenshots/clickBar.jpg "点击柱状条")
+<br /><img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/clickBar.jpg" width="auto" height="600px" alt="点击柱状条"/><br/>
 #### 1.2.2 点击按钮“JAVA”
 * 点击按钮“支持Java”
 * 可以看到Java在图表中的Bar增加1
 * 同时推送到其他用户
 * 其他用户收到消息更新自己图表
-![](Screenshots/clickBt1.jpg "支持Java")
+<br /><img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/clickBt1.jpg" width="auto" height="600px" alt="支持Java"/><br/>
 #### 1.2.2 点击按钮“JS”
 * 点击按钮“支持JS”
 * 可以看到JS在图表中的Bar增加1
 * 同时推送到其他用户
 * 其他用户收到消息更新自己图表
-![](Screenshots/clickBt2.jpg "支持JS")
+<br /><img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/clickBt2.jpg" width="auto" height="600px" alt="支持JS"/><br/>
 #### 1.2.4 点击按钮“重置”
 * 点击按钮“重置”
 * 可以看到图表中的数据都归零
 * 同时推送到其他用户
 * 其他用户收到消息更新自己图表
-![](Screenshots/reset.jpg "重置")
+<br /><img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/reset.jpg" width="auto" height="600px" alt="重置"/><br/>
 
 <!-- ROADMAP -->
 ## 2 技术组件
