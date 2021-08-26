@@ -15,7 +15,6 @@
   * 用户登录
   * MQTT客户端连接云端
 * 启动成功后界面如下：
-<br /><img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/login.jpg" width="auto" height="600px" alt="运行应用"/><br/>
 ### 1.2 业务功能
 #### 1.2.1 点击柱状条
 * 可以直接点击响应的柱状条给其投票
@@ -59,7 +58,7 @@
 <!-- LICENSE -->
 ## 3 开源协议
 
-基于 Apache 开源协议. 点击 `LICENSE` 查看更多信息
+基于 MIT 开源协议. 点击 `LICENSE` 查看更多信息
 
 <!-- CONTACT -->
 ## 4 联系作者
