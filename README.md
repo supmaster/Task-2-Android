@@ -4,7 +4,7 @@
 
 # Task-2-Android
 ## 1 概述
-基于环信MQTT开发的实时图表Android版，实现多终端互动。[下载demo体验](https://github.com/supmaster/Task-2-Android/releases/download/demo/app-release.apk)
+基于环信MQTT开发的实时图表Android版，实现多终端互动。[下载 apk demo 体验一下](https://github.com/supmaster/Task-2-Android/releases/download/demo/app-release.apk)
 <br />
 <img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/home.jpg" width="auto" height="700px" alt="登录成功"/><br/>
 ### 1.1 视频演示
@@ -15,7 +15,7 @@
 两部手机均安装该demo，同时打开，可以看到上方显示不同的用户名，分别点击按钮，可以看到本机和对方数据均随之变化。
 > * 发起方和接受方数据几乎同时变化，是因为逻辑上发起方仅做了推送MQTT消息的动作，大家收到消息一起响应
 > * 视频来看延时将近1秒，是因为左边手机用右边的热点，而月底右边的手机由于流量超了网速已经被限制到接近2G，连WiFi或4G网络会很快
-> * 此时需要您活动下脖子😂
+> * 此时需要您活动下脖子😂，清晰版请下载```Screenshots/clickButtons.mp4```查看
 
 <br /><img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/clickButtonsV3.gif" width="auto" height="600px" alt="点击按钮多设备协同投票"/><br/>
 
