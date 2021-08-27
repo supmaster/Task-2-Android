@@ -1,14 +1,16 @@
 package com.example.mqttcharts;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.AAChartCoreLib.AAChartCreator.AAChartModel;
 import com.example.AAChartCoreLib.AAChartCreator.AAChartView;
@@ -23,7 +25,6 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initMQTT() throws MqttException, InterruptedException {
         clientId = username+"@" + appId ;//System.currentTimeMillis() + "@" + appId;
-        mqttAndroidClient = new MqttAndroidClient(this, "tcp://xxxxxx.sandbox.mqtt.chat:1883", clientId);
+        mqttAndroidClient = new MqttAndroidClient(this,"tcp://broker.emqx.io:1883",clientId);
 
         Log.d(TAG, "获取token前，token=："+token);
         mqttGetToken();
@@ -207,18 +208,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
              * @param s
              * @param mqttMessage
              */
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void messageArrived(String s, MqttMessage mqttMessage) {
                 Log.d(TAG,"MQTT receive msg from topic " + s + " , body is " + new String(mqttMessage.getPayload()));
-                List<Integer> list = JSON.parseArray(new String(mqttMessage.getPayload()), Integer.class);
-                sum = list.toArray(new Integer[list.size()]);
+                String str = new String(mqttMessage.getPayload());
+                String[] info = str.split(";");
+                for(String ss:info){
+                    Log.d(TAG,"MQTT info i ==  " + ss);
+                }
+                if(info[0].equals("-1")){
+                    Log.d(TAG,"MQTT REST info[0] =  " + info[0]);
+                    sum = new Integer[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+                    Log.d(TAG,"MQTT REST sum[0] =  " + sum[0]);
+                }else {
+                    Log.d(TAG,"MQTT OLD info[0] =  " + info[0]);
+                    sum[Integer.valueOf(info[0])] = sum[Integer.valueOf(info[0])] + 1;
+                    Log.d(TAG,"MQTT UPDATED sum["+info[1]+"] =  " + sum[Integer.valueOf(info[0])]);
+                }
+                String uname = info[2];
+                Log.d(TAG, "MQTT str=" + str + ",index=" + info[0] +",poster=" + uname);
+                Toast t= Toast.makeText(MainActivity.this, uname+" 发送了消息", Toast.LENGTH_LONG);
+                t.setGravity(Gravity.TOP,0,0);
+                t.show();
                 aaChartView.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(
-                        new AASeriesElement[]{new AASeriesElement().name("编程语言").data(sum)},
-                        false);
+                        new AASeriesElement[]{new AASeriesElement().data(sum)},
+                        true);
             }
             @Override
             public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-                Log.d(TAG,"MQTT send msg succeed topic is : " + iMqttDeliveryToken.getTopics()[0]);
+                try {
+                    Log.d(TAG,"MQTT send msg succeed MessageId is : " + iMqttDeliveryToken.getMessageId()+",Message="+iMqttDeliveryToken.getMessage().toString());
+                } catch (MqttException e) {
+                    Log.d(TAG,"MQTT send msg succeed MessageId is : " + iMqttDeliveryToken.getMessageId());
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -226,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initChart() {
         aaChartModel.chartType(AAChartType.Bar)
                 .title("世界上最好的编程语言？")
-                .subtitle("MQTT TEST")
+                .subtitle("MQTT TEST,用户:"+username)
                 .backgroundColor("#ffffff")//("#4b2b7f")
                 .categories(new String[]{"Java", "Swift", "Python", "Ruby", "JS", "PHP", "Go", "C", "C++"})
                 .dataLabelsEnabled(true)
@@ -245,16 +269,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_add1:
-                sum[0] = sum[0].intValue() + 1;
+//                sum[0] = sum[0].intValue() + 1;
                 aaChartView.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(
                         new AASeriesElement[]{new AASeriesElement().name("编程语言").data(sum)},
                         true);
                 new Thread(new Runnable(){
                     @Override
                     public void run() {
-                        MqttMessage message = new MqttMessage(sum.toString().getBytes());
+                        MqttMessage message = new MqttMessage(("0;"+sum[0].toString()+";"+username).getBytes());
                         //设置传输质量
                         message.setQos(2);
+                        Log.d(TAG,"sum[0] = "+sum[0].toString());
+                        Log.d(TAG,"send message ="+message.toString());
                         try {
                             mqttConnect();
                         } catch (MqttException e) {
@@ -269,19 +295,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         }
                 }).start();
-                Toast.makeText(MainActivity.this, username+"发送了消息", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, username+"发送了消息", Toast.LENGTH_LONG).setGravity(Gravity.TOP,0,0).show();
                 break;
             case R.id.bt_add2:
-                sum[4] = sum[4].intValue() + 1;
+//                sum[4] = sum[4].intValue() + 1;
                 aaChartView.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(
                         new AASeriesElement[]{new AASeriesElement().name("编程语言").data(sum)},
                         true);
                 new Thread(new Runnable(){
                     @Override
                     public void run() {
-                        MqttMessage message = new MqttMessage(sum.toString().getBytes());
+                        MqttMessage message = new MqttMessage(("4;"+sum[4].toString()+";"+username).getBytes());
                         //设置传输质量
                         message.setQos(2);
+                        Log.d(TAG,"sum[4] = "+sum[4].toString());
+                        Log.d(TAG,"send message ="+message.toString());
                         try {
                             mqttConnect();
                         } catch (MqttException e) {
@@ -296,19 +324,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }).start();
-                Toast.makeText(MainActivity.this, username+"发送了消息", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, username+"发送了消息", Toast.LENGTH_LONG).setGravity(Gravity.TOP,0,0).show();
                 break;
             case R.id.bt_reset:
-                sum = new Integer[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-                aaChartView.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(
-                        new AASeriesElement[]{new AASeriesElement().name("编程语言").data(sum)},
-                        true);
+//                sum = new Integer[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+//                aaChartView.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(
+//                        new AASeriesElement[]{new AASeriesElement().name("编程语言").data(sum)},
+//                        true);
                 new Thread(new Runnable(){
                     @Override
                     public void run() {
-                        MqttMessage message = new MqttMessage(sum.toString().getBytes());
+                        MqttMessage message = new MqttMessage(("-1;0;"+username).getBytes());
                         //设置传输质量
                         message.setQos(2);
+                        Log.d(TAG,"send message ="+message.toString());
                         try {
                             mqttConnect();
                         } catch (MqttException e) {
@@ -323,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }).start();
-                Toast.makeText(MainActivity.this, username+"点了重置", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, username+"点了重置", Toast.LENGTH_LONG).setGravity(Gravity.TOP,0,0).show();
                 break;
             default:
                 break;
