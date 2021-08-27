@@ -15,8 +15,9 @@
 两部手机均安装该demo，同时打开，可以看到上方显示不同的用户名，分别点击按钮，可以看到本机和对方数据均随之变化。
 > * 发起方和接受方数据几乎同时变化，是因为逻辑上发起方仅做了推送MQTT消息的动作，大家收到消息一起响应
 > * 视频来看延时将近1秒，是因为左边手机用右边的热点，而月底右边的手机由于流量超了网速已经被限制到接近2G，连WiFi或4G网络会很快
+> * 此时需要您活动下脖子😂
 
-<video src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/clickButtonsV3.gif" controls="controls" width="500" height="300">您的浏览器不支持播放该视频！</video>
+<br /><img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/clickButtonsV3.gif" width="auto" height="600px" alt="点击按钮多设备协同投票"/><br/>
 
 ## 2 功能介绍
 ### 2.1 系统功能
