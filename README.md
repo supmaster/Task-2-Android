@@ -4,7 +4,7 @@
 
 # Task-2-Android
 ## 1 概述
-基于环信MQTT开发的实时图表Android版，实现多终端互动
+基于环信MQTT开发的实时图表Android版，实现多终端互动。[下载demo体验](https://github.com/supmaster/Task-2-Android/releases/download/demo/app-release.apk)
 <br />
 <img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/home.jpg" width="auto" height="700px" alt="登录成功"/><br/>
 ### 1.1 视频演示
