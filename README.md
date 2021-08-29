@@ -5,8 +5,10 @@
 # Task-2-Android
 ## 1 概述
 基于环信MQTT开发的实时图表Android版，实现多终端互动。[下载 apk demo 体验一下](https://github.com/supmaster/Task-2-Android/releases/download/demo/app-release.apk)
+。另**免费附赠**[Task-1-Android](https://github.com/supmaster/Task-1-Android)
 <br />
 <img src="https://github.com/supmaster/Task-2-Android/blob/main/Screenshots/home.jpg" width="auto" height="700px" alt="登录成功"/><br/>
+
 ### 1.1 视频演示
 #### 1.1.1 柱状条投票
 点击柱状条，可以看到票数增加（该动作仅做演示暂时没有做MQTT同步）
